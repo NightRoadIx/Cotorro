@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Cotorro.Views.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Cotorro.ViewModels">
+
+    <ContentPage.BindingContext>
+        <!-- Si no usas DI, puedes instanciar aquí el VM,
+             pero lo haremos por DI en el code-behind -->
+        <!-- viewmodels:MainPageViewModel -->
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Texto a leer"
+                   FontAttributes="Bold"
+                   FontSize="Medium" />
+
+            <Editor
+                Text="{Binding TextToRead}"
+                AutoSize="TextChanges"
+                HeightRequest="150"
+                Placeholder="Escribe aquí el texto que quieres escuchar..." />
+
+            <Label Text="Idioma / voz"
+                   FontAttributes="Bold"
+                   FontSize="Medium" />
+
+            <!-- Lista de idiomas disponibles -->
+            <Picker
+                ItemsSource="{Binding Locales}"
+                SelectedItem="{Binding SelectedLocale}"
+                ItemDisplayBinding="{Binding Name}" />
+
+            <!-- Botón con icono de audio (emoji) -->
+            <Button
+                Text="🔊 Leer en voz alta"
+                FontSize="Large"
+                Command="{Binding SpeakCommand}" />
+            <!--IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}, FallbackValue=True}" /> -->
+
+            <!-- Si no quieres converter, simplemente usa el CanExecute del comando -->
+        </VerticalStackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
